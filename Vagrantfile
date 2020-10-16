@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
   config.vm.define "k3s-server" do |server|
-    server.vm.box = "#{ENV['SERVER_BOX']}.box"
+    server.vm.box = "#{ENV['SERVER_BOX']}"
     server.vm.guest = :linux
     server.vm.boot_timeout = 60
     server.vm.provider :virtualbox do |v|
@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   COUNT=Integer(ENV['NODES_NUM'])
   (1..COUNT).each do |i|
     config.vm.define "k3s-agent-#{i}" do |node|
-      node.vm.box = "#{ENV['AGENT_BOX']}.box"
+      node.vm.box = "#{ENV['AGENT_BOX']}"
       node.vm.guest = :linux
       node.vm.boot_timeout = 60
       node.vm.provider :virtualbox do |v|

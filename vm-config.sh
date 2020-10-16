@@ -29,6 +29,7 @@ for i in $(eval echo {1..$NODES_NUM}); do
     sed -i "s#{{_http_proxy_}}#$HTTP_PROXY#g" $AGENT_CONF
 done
 
+
 VM_ARR=()
 ###### update config ######
 ## server

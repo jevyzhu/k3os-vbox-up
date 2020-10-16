@@ -16,7 +16,6 @@ variable iso_checksum {
 
 
 variable  ssh_pkf {
-  default = "id_rsa"
 }
 
 variable vm_name {
@@ -24,6 +23,5 @@ variable vm_name {
 }
 
 variable config {
-  default = "config.yml"
 }
 

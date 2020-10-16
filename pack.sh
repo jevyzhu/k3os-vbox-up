@@ -1,11 +1,12 @@
 #!/bin/bash
 
-set -euo pipefail
+set -euxo pipefail
 
 . env.sh
 
-rm -fr output-*
+rm -fr $SERVER_BOX $AGENT_BOX
 rm -fr *.yml
+rm -fr output-*
 
 if [[ ! -f "$ISO" ]]; then
   wget -O $ISO $ISO_URL
@@ -28,7 +29,6 @@ sed -i "s#{{_ssh_key_}}#$SSH_PUB_KEY#g" $SERVER_CONF_COMMON
 sed -i "s/{{_hostname_}}/$SERVER_HOST_NAME/g" $SERVER_CONF_COMMON
 
 # build box
-rm -fr output-k3os
 packer build -var vm_name=$SERVER_BOX  \
     -var config=$SERVER_CONF_COMMON \
     -var iso_url=$ISO \
@@ -58,3 +58,5 @@ echo
 echo "Box Build Finished from: $ISO"
 echo
 
+rm -fr tmp1.yml
+rm -fr tmp2.yml

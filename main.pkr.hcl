@@ -13,10 +13,12 @@ source virtualbox-iso myk3os {
     boot_command = [
         "<down>e",
         "<down><down><down><down><down><down><end>",
-	" k3os.mode=install k3os.fallback_mode=install",
-	" k3os.install.silent=true k3os.install.device=/dev/sda", 
+	" k3os.mode=install",
+	" k3os.fallback_mode=install",
+	" k3os.install.silent=true",
+	" k3os.install.device=/dev/sda", 
 	" k3os.install.config_url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/${var.config}",
-	"<f10>",
+	"<f10>"
     ]
     vboxmanage = [
         ["setextradata", "{{.Name}}",  "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled", "0"],
@@ -29,6 +31,6 @@ source virtualbox-iso myk3os {
 build {
   sources = ["sources.virtualbox-iso.myk3os"]
   post-processor vagrant {
-      output = "${var.vm_name}.box"
+      output = "${var.vm_name}"
   }
 }

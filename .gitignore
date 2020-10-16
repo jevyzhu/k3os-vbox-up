@@ -14,3 +14,6 @@ output-*
 id_rsa*
 ssh_key*
 *.iso
+
+# For vagrant
+.vagrant
