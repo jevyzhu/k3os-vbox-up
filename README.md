@@ -44,7 +44,7 @@ kube-system   traefik-758cd5fc85-4thxp                     1/1     Running     0
 ```
 
 # Customize
-Edit env.sh, change some env vars.
+Edit `env.sh`, change some env vars.
 For example, to increase nodes to 5:
 
 ```bash
