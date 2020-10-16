@@ -1,0 +1,53 @@
+ssh_authorized_keys:
+- {{_ssh_key_}}
+
+hostname: {{_hostname_}}
+
+boot_cmd:
+- "ln -vs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&  echo 'Asia/Shanghai' > /etc/timezone"
+
+run_cmd:
+- "/etc/set-private-ip.sh"
+
+k3os:
+  ntp_servers:
+  - 0.cn.pool.ntp.org
+  - 1.cn.pool.ntp.org
+  - 2.cn.pool.ntp.org
+  - 3.cn.pool.ntp.org
+  password: rancher
+  token: {{_token_}}
+  k3s_args:
+  - server
+  - "--flannel-iface=eth1"
+  environment:
+    http_proxy: {{_http_proxy_}}
+    https_proxy: {{_http_proxy_}}
+    HTTP_PROXY: {{_http_proxy_}}    
+    HTTPS_PROXY: {{_http_proxy_}}
+    
+    
+write_files:
+- enconding: ""
+  content: |-
+    #!/bin/bash
+    write_log () {
+        local message="${1}"
+        logger -t "set-private-ip" "${message}"
+        echo "${message}"
+    }
+    write_log "Getting the service using eth1..."
+    
+    ETH=$(connmanctl services | awk '{ print $3 }' | while read -r s1; do connmanctl services $s1 | grep -q "eth1" && echo "$s1"; done)
+    #ETH=ethernet_$(ip link show eth1 | grep ether | awk '{print $2}' | tr -d ":" | tr '[:upper:]' '[:lower:]')_cable
+    write_log "eth1 is bound to: ${ETH}"
+    write_log "Setting up manual net config..."
+    connmanctl config $ETH --ipv4 manual {{_private_ip_}} 255.255.255.0 {{_private_gw_}}
+    #connmanctl config $ETH --domains my.local
+    #connmanctl config $ETH --ipv6 off
+    write_log "Restarting connman..."
+    service connman restart
+    write_log "Network setup done."
+  owner: root:root
+  path: /etc/set-private-ip.sh
+  permissions: '0755'

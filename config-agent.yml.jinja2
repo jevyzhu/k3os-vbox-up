@@ -1,0 +1,27 @@
+ssh_authorized_keys:
+- {{_ssh_key_}}
+
+hostname: {{_hostname_}}
+
+boot_cmd:
+- "ln -vs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &&  echo 'Asia/Shanghai' > /etc/timezone"
+
+
+k3os:
+  ntp_servers:
+  - 0.cn.pool.ntp.org
+  - 1.cn.pool.ntp.org
+  - 2.cn.pool.ntp.org
+  - 3.cn.pool.ntp.org
+  password: rancher
+  token: {{_token_}}
+  server_url: https://{{_server_ip_}}:6443
+  k3s_args:
+  - agent
+  - "--flannel-iface=eth1"
+  environment:
+    http_proxy: {{_http_proxy_}}
+    https_proxy: {{_http_proxy_}}
+    HTTP_PROXY: {{_http_proxy_}}    
+    HTTPS_PROXY: {{_http_proxy_}}
+    

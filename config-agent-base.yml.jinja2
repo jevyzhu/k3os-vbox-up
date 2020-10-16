@@ -1,0 +1,10 @@
+ssh_authorized_keys:
+- {{_ssh_key_}}
+
+hostname: k3os-demo
+
+k3os:
+  password: rancher
+  k3s_args:
+  - agent
+  - "--flannel-iface=eth1"
