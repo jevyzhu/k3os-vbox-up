@@ -9,3 +9,8 @@ crash.log
 
 # For output
 output-*
+
+# For keys
+id_rsa*
+ssh_key*
+*.iso
