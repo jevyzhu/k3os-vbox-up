@@ -1,11 +1,11 @@
 #!/bin/bash
 
-set -euo pipefail
+set -euxo pipefail
 
 . env.sh
 
-vagrant box remove $SERVER_BOX || :
-vagrant box remove $AGENT_BOX || :
+vagrant box add --force --name $SERVER_BOX ./$SERVER_BOX
+vagrant box add --force --name $SERVER_BOX ./$AGENT_BOX
 
 vagrant up
 
