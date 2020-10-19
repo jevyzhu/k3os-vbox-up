@@ -2,8 +2,6 @@
 
 set -euxo pipefail
 
-. env.sh
-
 rm -fr $SERVER_BOX $AGENT_BOX
 rm -fr *.yml
 rm -fr output-*

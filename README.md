@@ -1,5 +1,5 @@
 # k3os-vbox-up
-Automatically Build A Multi-Nodes K3OS Cluster In **5 Minutes - from 0**
+Automatically Build A Multi-Nodes K3OS Cluster In **3 Minutes - from 0**
 This is mainly for development and test.
 
 # Prerequisites
@@ -14,7 +14,14 @@ You should have followings installed:
 
 ```bash
 cd k3os-vbox-up
+
+# setup env
+. env.sh
+
+# generate vagrant boxes
 ./pack.sh
+
+# boot-up vms in vbox
 ./up.sh
 ```
 That's it! By default you have 3 vm running with k3s: 1 master, 2 nodes: 
@@ -44,14 +51,16 @@ kube-system   traefik-758cd5fc85-4thxp                     1/1     Running     0
 ```
 
 # Customize
-Edit `env.sh`, change some env vars.
-For example, to increase nodes to 5:
+Edit `env.sh`, change some environment vars.
 
-```bash
-export NODES_NUM=5        # k3s nodes number
-```
+For example, to increase nodes to 5 in `env.sh`:
+
+> export NODES_NUM=5        # k3s nodes number
+
 Then run:
 ```bash
+. env.sh
+
 ./up.sh
 ```
 Just a few minutes then you get:
