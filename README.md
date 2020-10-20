@@ -2,10 +2,16 @@
 Automatically Build A Multi-Nodes K3OS Cluster In **3 Minutes - from 0**
 This is mainly for development and test.
 
+
+
+> K3OS shipped k3s, which is full-featured k8s distribution that can even be used in production.
+
+
+
 # Prerequisites
 You should have followings installed:
 
-* bash ( for windows you can use git bash)
+* bash ( for windows, use git-bash or msys2)
 * [packer](https://www.packer.io/)
 * [vagrant](https://www.vagrantup.com/)
 * [virtual box](https://www.virtualbox.org/)
@@ -13,21 +19,21 @@ You should have followings installed:
 # Quick Start
 
 ```bash
-cd k3os-vbox-up
+> cd k3os-vbox-up
 
 # setup env
-. env.sh
+> . env.sh
 
 # generate vagrant boxes
-./pack.sh
+> ./pack.sh
 
 # boot-up vms in vbox
-./up.sh
+> ./up.sh
 ```
 That's it! By default you have 3 vm running with k3s: 1 master, 2 nodes: 
 
 ```bash
-k3s-master [~]$ kubectl get pod --all-namespaces -o wide
+> k3s-master [~]$ kubectl get pod --all-namespaces -o wide
 NAMESPACE     NAME                                         READY   STATUS      RESTARTS   AGE   IP          NODE         NOMINATED NODE
   READINESS GATES
 k3os-system   system-upgrade-controller-66d5c7dd6b-c4dkz   1/1     Running     0          51m   10.42.0.4   k3s-master   <none>
@@ -59,13 +65,13 @@ For example, to increase nodes to 5 in `env.sh`:
 
 Then run:
 ```bash
-. env.sh
+> . env.sh
 
-./up.sh
+> ./up.sh
 ```
 Just a few minutes then you get:
 ```bash
-k3s-master [~]$ kubectl get node
+> k3s-master [~]$ kubectl get node
 NAME         STATUS   ROLES    AGE    VERSION
 k3s-master   Ready    master   61m    v1.18.9+k3s1
 k3s-node-1   Ready    <none>   61m    v1.18.9+k3s1
